@@ -109,12 +109,12 @@ export default function LoginPage() {
                             </Button>
                          </form>
                      </Form>
-                     <p className="text-sm text-muted-foreground mt-6 text-center">
+                     {/* <p className="text-sm text-muted-foreground mt-6 text-center">
                          ¿No tienes una cuenta?{' '}
                          <Link href="/signup" className="font-semibold text-primary hover:underline">
                              Regístrate
                          </Link>
-                     </p>
+                     </p> */}
                 </Card>
                 <p className="text-xs text-muted-foreground mt-8">© {new Date().getFullYear()} LendEasy. Todos los derechos reservados.</p>
             </div>
