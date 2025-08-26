@@ -7,12 +7,14 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBBqaRl_tv0LcEnTs08hU02NdDs8s9QUIM",
-  authDomain: "lendeasy-6e36b.firebaseapp.com",
-  projectId: "lendeasy-6e36b",
-  storageBucket: "lendeasy-6e36b.firebasestorage.app",
-  messagingSenderId: "131903487012",
-  appId: "1:131903487012:web:e47c26167577bde730ecb1"
+  apiKey: "AIzaSyAIgZ0mA5uhWpLnD1nutXzdN_ajnalUJI0",
+  authDomain: "lendeasytimote.firebaseapp.com",
+  projectId: "lendeasytimote",
+  storageBucket: "lendeasytimote.firebasestorage.app",
+  messagingSenderId: "401998057385",
+  appId: "1:401998057385:web:10cd0a8815bceaec46beb8",
+  measurementId: "G-5D26QYCQX5"
+  
 };
 
 // Initialize Firebase
