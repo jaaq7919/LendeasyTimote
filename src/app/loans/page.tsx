@@ -28,12 +28,14 @@ import {
 import {MoreHorizontal, PlusCircle} from 'lucide-react';
 import Link from 'next/link';
 import {Button} from '@/components/ui/button';
-import type {Loan, Borrower} from '@/lib/types';
+import type {Loan, Borrower, Payment} from '@/lib/types';
 import { AddLoanForm } from '@/components/loans/add-loan-form';
 import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { RegisterPaymentForm } from '@/components/payments/register-payment-form';
+import { DropdownMenuTriggerItem } from '@/components/payments/dropdown-menu-trigger-item';
 
 const LoansPage: FC = () => {
   const [loans, setLoans] = useState<Loan[]>([]);
@@ -176,7 +178,11 @@ const LoansPage: FC = () => {
                     </TableCell>
                   </TableRow>
               ) : (
-                paginatedLoans.map(loan => (
+                paginatedLoans.map(loan => {
+                  const rawNextPayment = loan.paymentSchedule.find(p => p.status === 'Pendiente' || p.status === 'Atrasado');
+                  const nextPayment = rawNextPayment ? { ...rawNextPayment, loanId: loan.id } : null;
+
+                  return (
                   <TableRow key={loan.id}>
                     <TableCell className="font-medium">
                         <Link href={`/borrowers/${loan.borrowerId}`} className="hover:underline">
@@ -202,16 +208,21 @@ const LoansPage: FC = () => {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                             <DropdownMenuItem asChild>
-                            <Link href={`/borrowers/${loan.borrowerId}`}>Ver detalles del cliente</Link>
-                          </DropdownMenuItem>
-                            <DropdownMenuItem asChild>
-                            <Link href={`/borrowers/${loan.borrowerId}`}>Ver detalles del préstamo</Link>
-                          </DropdownMenuItem>
+                              <Link href={`/borrowers/${loan.borrowerId}`}>Ver detalles del préstamo</Link>
+                            </DropdownMenuItem>
+                            {nextPayment && (
+                                <RegisterPaymentForm payment={nextPayment}>
+                                    <DropdownMenuTriggerItem>
+                                        Registrar Pago
+                                    </DropdownMenuTriggerItem>
+                                </RegisterPaymentForm>
+                            )}
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </TableCell>
                   </TableRow>
-                ))
+                  );
+                })
               )}
             </TableBody>
           </Table>
@@ -247,4 +258,3 @@ const LoansPage: FC = () => {
 };
 
 export default LoansPage;
-
