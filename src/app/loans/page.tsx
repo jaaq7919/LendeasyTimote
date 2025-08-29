@@ -248,4 +248,3 @@ const LoansPage: FC = () => {
 
 export default LoansPage;
 
-    
